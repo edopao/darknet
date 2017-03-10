@@ -1,0 +1,13 @@
+1] get weights (once)
+
+wget http://pjreddie.com/media/files/yolo.weights
+
+2]
+
+./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg
+
+look at the generate prediction.jpg picture
+
+GEMM:
+
+look in src/gemm.c -> substitute gemm_cpu with our omp GEMM

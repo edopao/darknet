@@ -2,6 +2,7 @@ GPU=0
 CUDNN=0
 OPENCV=0
 DEBUG=0
+OPENMP=0
 
 ARCH= -gencode arch=compute_20,code=[sm_20,sm_21] \
       -gencode arch=compute_30,code=sm_30 \
@@ -19,9 +20,14 @@ OBJDIR=./obj/
 CC=gcc
 NVCC=nvcc 
 OPTS=-Ofast
-LDFLAGS= -lm -pthread 
+LDFLAGS= -lm -pthread -lprofiler
 COMMON= 
-CFLAGS=-Wall -Wfatal-errors 
+CFLAGS=-Wall -Wfatal-errors
+
+ifeq ($(OPENMP), 1) 
+CFLAGS+= -fopenmp
+LDFLAGS+= -fopenmp
+endif
 
 ifeq ($(DEBUG), 1) 
 OPTS=-O0 -g

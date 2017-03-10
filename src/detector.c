@@ -6,6 +6,7 @@
 #include "box.h"
 #include "demo.h"
 #include "option_list.h"
+#include "gperftools/profiler.h"
 
 #ifdef OPENCV
 #include "opencv2/highgui/highgui_c.h"
@@ -476,7 +477,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         float *X = sized.data;
         time=clock();
+	ProfilerStart("soundstretch.prof");
         network_predict(net, X);
+	ProfilerFlush();
+	ProfilerStop();
         printf("%s: Predicted in %f seconds.\n", input, sec(clock()-time));
         get_region_boxes(l, 1, 1, thresh, probs, boxes, 0, 0, hier_thresh);
         if (l.softmax_tree && nms) do_nms_obj(boxes, probs, l.w*l.h*l.n, l.classes, nms);
