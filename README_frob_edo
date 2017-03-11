@@ -1,8 +1,12 @@
+0] compile with gperftools enabled:
+
+make PROFILE=1
+
 1] get weights (once)
 
 wget http://pjreddie.com/media/files/yolo.weights
 
-2]
+2] detect objects in a jpeg picture
 
 ./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg
 
